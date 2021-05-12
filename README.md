@@ -1,20 +1,22 @@
-# Create Next App
+# Create OpenPolitica Nextjs App
 
-The easiest way to get started with Next.js is by using `create-next-app`. This simple CLI tool enables you to quickly start building a new Next.js application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [official Next.js examples](https://github.com/vercel/next.js/tree/canary/examples). To get started, use the following command:
+> **_NOTE:_** This repository is based on the original package https://github.com/vercel/next.js/tree/canary/packages/create-next-app
+
+The easiest way to get started with Next.js is by using `create-openpolitica-nextjs-app`. This simple CLI tool enables you to quickly start building a new Next.js application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [official Next.js examples](https://github.com/vercel/next.js/tree/canary/examples). To get started, use the following command:
 
 ```bash
-npx create-next-app
+npx create-openpolitica-nextjs-app
 ```
 
 To create a new app in a specific folder, you can send a name as an argument. For example, the following command will create a new Next.js app called `blog-app` in a folder with the same name:
 
 ```bash
-npx create-next-app blog-app
+npx create-openpolitica-nextjs-app blog-app
 ```
 
 ## Options
 
-`create-next-app` comes with the following options:
+`create-openpolitica-nextjs-app` comes with the following options:
 
 - **--ts, --typescript** - Initialize as a TypeScript project.
 - **-e, --example [name]|[github-url]** - An example to bootstrap the app with. You can use an example name from the [Next.js repo](https://github.com/vercel/next.js/tree/master/examples) or a GitHub URL. The URL can use any branch and/or subdirectory.
@@ -23,10 +25,10 @@ npx create-next-app blog-app
 
 ## Why use Create Next App?
 
-`create-next-app` allows you to create a new Next.js app within seconds. It is officially maintained by the creators of Next.js, and includes a number of benefits:
+`create-openpolitica-nextjs-app` allows you to create a new Next.js app within seconds. It is officially maintained by the creators of Next.js, and includes a number of benefits:
 
-- **Interactive Experience**: Running `npx create-next-app` (with no arguments) launches an interactive experience that guides you through setting up a project.
+- **Interactive Experience**: Running `npx create-openpolitica-nextjs-app` (with no arguments) launches an interactive experience that guides you through setting up a project.
 - **Zero Dependencies**: Initializing a project is as quick as one second. Create Next App has zero dependencies.
 - **Offline Support**: Create Next App will automatically detect if you're offline and bootstrap your project using your local package cache.
-- **Support for Examples**: Create Next App can bootstrap your application using an example from the Next.js examples collection (e.g. `npx create-next-app --example api-routes`).
+- **Support for Examples**: Create Next App can bootstrap your application using an example from the Next.js examples collection (e.g. `npx create-openpolitica-nextjs-app --example api-routes`).
 - **Tested**: The package is part of the Next.js monorepo and tested using the same integration test suite as Next.js itself, ensuring it works as expected with every release.
