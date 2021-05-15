@@ -187,7 +187,19 @@ export async function createApp({
         dev: 'next dev',
         build: 'next build',
         start: 'next start',
+        'lint': 'eslint --ext js .',
+        'lint:fix': 'npm run lint -- --fix',
+        'lint-only': 'eslint --ext .js',
+        'lint-only:fix': 'npm run lint-only -- --fix',
+        'prepare': 'husky install',
+        'postinstall': 'husky install',
+        'precommit': 'lint-staged',
       },
+      'lint-staged' : {
+        '*.{js,jsx,css}': [
+          'npm run lint-only'
+        ],
+      }
     }
     /**
      * Write it to disk.
@@ -203,29 +215,34 @@ export async function createApp({
     /**
      * Default dependencies.
      */
-    const dependencies = ['react', 'react-dom', 'next']
+    const dependencies = ['react', 'react-dom', 'next', 'styled-components']
     /**
      * Default devDependencies.
      */
-    const devDependencies = []
+    const devDependencies = [
+      '@svgr/webpack',
+      '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint/parser',
+      'babel-eslint',
+      'eslint',
+      'eslint-config-prettier',
+      'eslint-config-react-app',
+      'eslint-plugin-better-styled-components',
+      'eslint-plugin-flowtype',
+      'eslint-plugin-import',
+      'eslint-plugin-jsx-a11y',
+      'eslint-plugin-prettier',
+      'eslint-plugin-react',
+      'eslint-plugin-react-hooks',
+      'husky',
+      'lint-staged',
+      'prettier',
+    ]
     /**
      * TypeScript projects will have type definitions and other devDependencies.
      */
     if (typescript) {
       devDependencies.push('typescript', '@types/react')
-    }
-    /**
-     * Install package.json dependencies if they exist.
-     */
-    if (dependencies.length) {
-      console.log()
-      console.log('Installing dependencies:')
-      for (const dependency of dependencies) {
-        console.log(`- ${chalk.cyan(dependency)}`)
-      }
-      console.log()
-
-      await install(root, dependencies, installFlags)
     }
     /**
      * Install package.json devDependencies if they exist.
@@ -243,6 +260,19 @@ export async function createApp({
     }
     console.log()
     /**
+     * Install package.json dependencies if they exist.
+     */
+    if (dependencies.length) {
+      console.log()
+      console.log('Installing dependencies:')
+      for (const dependency of dependencies) {
+        console.log(`- ${chalk.cyan(dependency)}`)
+      }
+      console.log()
+
+      await install(root, dependencies, installFlags)
+    }
+    /**
      * Copy the template files to the target directory.
      */
     await cpy('**', root, {
@@ -256,6 +286,9 @@ export async function createApp({
           case 'prettierrc':
           case 'gitignore': {
             return '.'.concat(name)
+          }
+          case 'gitignore-husky': {
+            return '.husky/.gitignore'
           }
           case 'pre-commit': {
             return '.husky/'.concat(name)
@@ -275,6 +308,10 @@ export async function createApp({
 
   if (tryGitInit(root)) {
     console.log('Initialized a git repository.')
+    console.log()
+
+    // To execute postinstall hooks
+    await install(root, null, { useYarn, isOnline })
     console.log()
   }
 
