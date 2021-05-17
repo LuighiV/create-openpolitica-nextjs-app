@@ -1,8 +1,6 @@
-import React from 'react';
+import { createGlobalStyle } from "styled-components";
 
-export default () => (
-  <style>
-    {`
+const GlobalStyle = createGlobalStyle`
       body {
         background-color: white;
         color: black;
@@ -17,6 +15,6 @@ export default () => (
         background: #c60dff;
         color: white;
       }
-    `}
-  </style>
-);
+`;
+
+export default GlobalStyle;

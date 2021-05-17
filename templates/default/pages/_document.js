@@ -1,36 +1,29 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-import GlobalStyles from '../global-styles/global';
 
 export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
+  static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
-    const page = renderPage((App) => (props) =>
-      sheet.collectStyles(<App {...props} />),
-    );
-    const styleTags = sheet.getStyleElement();
+    const originalRenderPage = ctx.renderPage;
 
-    return { ...page, styleTags };
-  }
+    try {
+      ctx.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
+        });
 
-  render() {
-    return (
-      <Html lang="es">
-        <Head>
-          <link
-            rel="icon"
-            type="image/png"
-            sizes="48x48"
-            href="favicon/favicon.ico"
-          />
-          <GlobalStyles />
-          {this.props.styleTags}
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
+      const initialProps = await Document.getInitialProps(ctx);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
   }
 }
