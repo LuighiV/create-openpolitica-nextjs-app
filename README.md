@@ -1,6 +1,9 @@
 # Create OpenPolitica Nextjs App
 
 > **_NOTE:_** This repository is based on the original package https://github.com/vercel/next.js/tree/canary/packages/create-next-app
+>
+> It adds modifications to the original package to include some development
+> tools useful in the application development process.
 
 The easiest way to get started with Next.js is by using `create-openpolitica-nextjs-app`. This simple CLI tool enables you to quickly start building a new Next.js application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [official Next.js examples](https://github.com/vercel/next.js/tree/canary/examples). To get started, use the following command:
 

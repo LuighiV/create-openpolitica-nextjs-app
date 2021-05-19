@@ -1,21 +1,51 @@
-# Template Next.js para proyecto Open politica
+# Proyecto Next.js de OpenPolítica
 
-Esta plantilla ha sido generada por el equipo de OpenPolítica con la finalidad
-de facilitar la creación de proyectos en Next.js.
+Este es un proyecto generado con el script
+[`create-openpolitica-nextjs-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) desarrollado por el equipo de OpenPolítica basado en el script original de Nextjs 
+[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Desplegando en Vercel
+El proyecto es una adaptación de la plantilla por defecto de Nextjs con
+una preconfiguración de herramientas de
+desarrollo tales como ESLint, Prettier y Husky.
 
-Despliega el ejemplo empleando [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Scripts incluidos
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/openpolitica/templates/tree/master/nextjs&project-name=project-open-politica&repository-name=project-open-politica)
+El proyecto incluye los scripts por defecto de Next.js:
 
-## Como usar el template
-Ejecutar [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) con [npm](https://docs.npmjs.com/cli/init) o [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) para generar el ejemplo:
+- `yarn dev`: inicia el servidor en modo de desarrollo en
+		[http://localhost:3000](http://localhost:3000).
 
-```bash
-npx create-next-app --example https://github.com/openpolitica/templates/tree/master/nextjs open-politica-project
-# or
-yarn create next-app --example https://github.com/openpolitica/templates/tree/master/nextjs open-politica-project
-```
+- `yarn build`: compila la aplicación.
 
-También puedes desplegarlo en la nube con [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+- `yarn start`: inicia la aplicación compilada.
+
+Y también cuenta con scripts para fines de desarrollo, los cuales se han incluido
+como una modificación del script original `create-next-app`:
+
+- `yarn lint`: verifica las reglas de ESLint en todos los archivos de javascript del proyecto.
+
+- `yarn lint:fix`: trata de corregir según las reglas de ESLint todos los archivos de javascript del proyecto (especialmente las reglas de Prettier).
+
+- `yarn lint-only`: verifica las reglas de ESLint solamente en los archivos que se
+		especifiquen.
+
+- `yarn lint-only:fix`: trata de corregir según las reglas de ESLint solamente en los archivos que se
+		especifiquen.
+
+- `yarn prepare`/`yarn postinstall`: hook de instalación de husky, ejecutado
+		cada vez que se instala un nuevo paquete.
+
+- `yarn optimize:svg`: ejecuta el script de optimización de svg, localizado en
+		`scripts/optimize-svg.js` que aplica las reglas de svgo a los iconos svg
+		ubicados en `public/images/icons`, salvo aquellos en la lista `blacklist`.
+
+Como parte de la configuración de Husky, cada vez que se realice un commit se
+ejecuta `nxp --no-install lintstaged`, el cual verifica las reglas de ESLint
+mediante `npm run lint-only` en
+los archivos preparados para el commit.
+
+Así mismo, cada vez que se compile el proyecto, se ejecuta el script `scripts/optimize-svg.js` el cual optimizará todos los svg ubicados en `public/images/icons`, salvo aquellos en la lista `blacklist`.
+
+## Acerca de OpenPolítica
+
+OpenPolítica es un colectivo que crea soluciones digitales para facilitar la participación ciudadana. Si quieres conocer más sobre OpenPolítica puedes visitar su página en https://openpolitica.com/.
