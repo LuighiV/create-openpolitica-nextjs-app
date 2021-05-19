@@ -62,11 +62,7 @@ const optimizeFile = async function (filepath) {
     }
 
     const result = optimize(data, { path: filepath, ...config });
-
-    fs.writeFile(filepath, result.data, function (err) {
-      if (err) return console.log(err);
-    });
-
+    // Result model for optimize method (use as a reference)
     // {
     //     // optimized SVG data string
     //     data: '<svg width="10" height="20">test</svg>'
@@ -76,6 +72,10 @@ const optimizeFile = async function (filepath) {
     //         height: '20'
     //     }
     // }
+
+    fs.writeFile(filepath, result.data, function (err) {
+      if (err) return console.log(err);
+    });
   });
 };
 
