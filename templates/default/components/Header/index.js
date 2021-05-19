@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header>
       <Link href="/">
-        <LogoImg src={'/images/icons/logo.svg'} />
+        <LogoImg src="/images/icons/logo.svg" />
       </Link>
       <Title>Proyecto de Open politica</Title>
     </header>
