@@ -216,7 +216,7 @@ export async function createApp({
     /**
      * Default dependencies.
      */
-    const dependencies = ['react', 'react-dom', 'next', 'styled-components', 'svgo']
+    const dependencies = ['react', 'react-dom', 'next', 'styled-components', 'svgo@^2.3.0']
     /**
      * Default devDependencies.
      */
