@@ -200,6 +200,9 @@ export async function createApp({
         '*.{js,jsx,css}': [
           'npm run lint-only'
         ],
+      },
+      'resolutions': {
+        '**/css-what': '^5.0.0'
       }
     }
     /**
