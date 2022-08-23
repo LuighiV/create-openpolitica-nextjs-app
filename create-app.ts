@@ -44,7 +44,7 @@ export async function createApp({
 
     try {
       repoUrl = new URL(example)
-    } catch (error: any) {
+    } catch (error) {
       if (error.code !== 'ERR_INVALID_URL') {
         console.error(error)
         process.exit(1)
@@ -343,7 +343,7 @@ export async function createApp({
     console.log()
 
     // To execute postinstall hooks
-    await install(root, null, { useYarn, isOnline })
+    await install(root, null, { packageManager, isOnline })
     console.log()
   }
 
