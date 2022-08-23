@@ -220,6 +220,7 @@ export async function createApp({
         'prepare': 'husky install',
         'postinstall': 'husky install',
         'precommit': 'lint-staged',
+        'optimize:svg': 'node ./scripts/optimize-svg.js',
       },
       'lint-staged' : {
         '*.{js,jsx,css}': [
@@ -241,7 +242,7 @@ export async function createApp({
     /**
      * Default dependencies.
      */
-    const dependencies = ['react', 'react-dom', 'next', 'styled-components']
+    const dependencies = ['react', 'react-dom', 'next', 'styled-components', 'svgo']
     /**
      * Default devDependencies.
      */
