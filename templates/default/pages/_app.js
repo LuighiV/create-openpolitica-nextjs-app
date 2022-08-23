@@ -1,7 +1,15 @@
-import '../styles/globals.css'
+import { Fragment } from 'react';
+import Head from 'next/head';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+function MyOPApp({ Component, pageProps }) {
+  return (
+    <Fragment>
+      <Head>
+        <title>My Open Politica App</title>
+      </Head>
+      <Component {...pageProps} />
+    </Fragment>
+  );
 }
 
-export default MyApp
+export default MyOPApp;
