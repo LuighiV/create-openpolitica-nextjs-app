@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Fragment } from "react";
-import * as CUI from "@chakra-ui/react";
-import OpenLogo from "public/images/icons/logo.svg";
+import Link from 'next/link';
+import { Fragment } from 'react';
+import * as CUI from '@chakra-ui/react';
+import OpenLogo from 'public/images/icons/logo.svg';
 
 const Header = () => {
   return (
