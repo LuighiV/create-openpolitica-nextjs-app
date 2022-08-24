@@ -5,6 +5,7 @@ import cpy from 'cpy'
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
+import {deleteAsync} from 'del'
 import {
   downloadAndExtractExample,
   downloadAndExtractRepo,
@@ -29,12 +30,14 @@ export async function createApp({
   example,
   examplePath,
   typescript,
+  withChakra
 }: {
   appPath: string
   packageManager: PackageManager
   example?: string
   examplePath?: string
   typescript?: boolean
+  withChakra?: boolean
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined
   const template = typescript ? 'typescript' : 'default'
@@ -44,7 +47,7 @@ export async function createApp({
 
     try {
       repoUrl = new URL(example)
-    } catch (error) {
+    } catch (error: any) {
       if (error.code !== 'ERR_INVALID_URL') {
         console.error(error)
         process.exit(1)
@@ -159,11 +162,11 @@ export async function createApp({
         })
       }
     } catch (reason) {
-      function isErrorLike(err: unknown): err is { message: string } {
+      function isErrorLike(err: unknown): err is {message: string} {
         return (
           typeof err === 'object' &&
           err !== null &&
-          typeof (err as { message?: unknown }).message === 'string'
+          typeof (err as {message?: unknown}).message === 'string'
         )
       }
       throw new DownloadError(
@@ -193,7 +196,7 @@ export async function createApp({
       console.log('Installing packages. This might take a couple of minutes.')
       console.log()
 
-      await install(root, null, { packageManager, isOnline })
+      await install(root, null, {packageManager, isOnline})
       console.log()
     }
   } else {
@@ -222,7 +225,7 @@ export async function createApp({
         'precommit': 'lint-staged',
         'optimize:svg': 'node ./scripts/optimize-svg.js',
       },
-      'lint-staged' : {
+      'lint-staged': {
         '*.{js,jsx,css}': [
           'npm run lint-only'
         ],
@@ -238,11 +241,25 @@ export async function createApp({
     /**
      * These flags will be passed to `install()`.
      */
-    const installFlags = { packageManager, isOnline }
+    const installFlags = {packageManager, isOnline}
     /**
      * Default dependencies.
      */
-    const dependencies = ['react', 'react-dom', 'next', 'styled-components', 'svgo@^2.3.0']
+    const dependencies = ['react', 'react-dom', 'next', 'svgo@^2.3.0']
+
+    if (withChakra) {
+      dependencies.push(
+        "@chakra-ui/react", 
+        "@chakra-ui/theme-tools", 
+        "@chakra-ui/icons", 
+        "@emotion/react", 
+        "@emotion/styled", 
+        "framer-motion"
+      )
+    } else{
+      dependencies.push("styled-components")
+    }
+
     /**
      * Default devDependencies.
      */
@@ -308,7 +325,7 @@ export async function createApp({
      * Copy the template files to the target directory.
      */
     await cpy('**', root, {
-      parents: true,
+      parents:true,
       cwd: path.join(__dirname, 'templates', template),
       rename: (name) => {
         switch (name) {
@@ -336,6 +353,17 @@ export async function createApp({
         }
       },
     })
+
+    if(withChakra){
+      await deleteAsync([path.join(root, 'components', 'Header')])
+
+      await cpy('**', root, {
+      parents:true,
+        cwd: path.join(__dirname, 'templates', 'with-chakra-ui')
+      })
+
+    }
+
   }
 
   if (tryGitInit(root)) {

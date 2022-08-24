@@ -27,6 +27,13 @@ const program = new Commander.Command(packageJson.name)
 `
   )
   .option(
+    '--with-chakra',
+    `
+
+  Initialize with Chakra UI framework
+`
+  )
+  .option(
     '--use-npm',
     `
 
@@ -136,6 +143,7 @@ async function run(): Promise<void> {
       example: example && example !== 'default' ? example : undefined,
       examplePath: program.examplePath,
       typescript: program.typescript,
+      withChakra: program.withChakra
     })
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {
